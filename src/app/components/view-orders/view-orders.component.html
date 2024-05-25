@@ -1,0 +1,41 @@
+<mat-toolbar>
+  <span>My Orders</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button (click)="routeToHome()" class="home">
+    <mat-icon>home</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="scrollablePart">
+  <div *ngIf="orders.length === 0" class="onEmptyOrder">
+    <h1>No orders found </h1>
+  </div>
+  <mat-card class="example-card" *ngFor="let order of orders.reverse()" appearance="outlined">
+    <mat-card-header>
+      <div class="products">
+        <div class="img">
+          <img mat-card-lg-image [src]="order.product.product.imageUrl" alt="{{ order.product.product.name }}">
+        </div>
+        <div class="title-group" class="desc">
+          <mat-card-title>{{ order.product.product.name }}</mat-card-title>
+          <!-- <mat-card-subtitle style=" color: rgb(63, 30, 212)">User Id : {{ order.docId }}</mat-card-subtitle> -->
+          <mat-card-subtitle>Order Id : {{ order.orderId }}</mat-card-subtitle>
+          <mat-card-subtitle>Order placed on {{ order.dateOfOrdered | date:'medium'}}</mat-card-subtitle>
+          <mat-card-actions>
+            <button mat-flat-button (click)="deliverOrder(order.orderId, order.docId)"
+            *ngIf="!order.product.product.dateOfOrderDelivered && !order.product.product.isOrderCancled ">Deliver Order</button>
+
+            <button mat-flat-button *ngIf="order.product.product.isOrderCancled" disabled="true"
+              [ngStyle]="{'color': 'red', 'background-color': 'transparent'}">Order Cancelled</button>
+
+            <button mat-flat-button *ngIf="order.product.product.dateOfOrderDelivered" disabled="true"
+              [ngStyle]="{'color': 'green', 'background-color': 'transparent'}">Order Delivered</button>
+
+            <button mat-flat-button (click)="viewOrder(order)">View Order Details</button>
+          </mat-card-actions>
+
+        </div>
+      </div>
+    </mat-card-header>
+  </mat-card>
+</div>

@@ -1,0 +1,45 @@
+<mat-toolbar>
+    <span>Add Product</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button style="color: black;" (click)="routeToHome()">
+        <mat-icon>home</mat-icon>
+    </button>
+
+</mat-toolbar>
+<mat-divider></mat-divider>
+
+<div class="card shadow scrollablePart">
+    <div class="card-body">
+        <form (ngSubmit)="submitForm()">
+            <div class="mb-3">
+                <input type="text" placeholder="Product Name" class="form-control" [(ngModel)]="productName" required
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="mb-3">
+                <input type="number" placeholder="Price" class="form-control" [(ngModel)]="price" required
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="mb-3">
+                <mat-label>Upload Image</mat-label>
+                <input type="file" placeholder="Image" class="form-control" [(ngModel)]="imageUrl" required
+                    [ngModelOptions]="{standalone: true}" (change)="onFileSelected($event)">
+            </div>
+            <!-- <div class="mb-3">
+                <mat-label>Upload Video</mat-label>
+                <input type="file" accept="video/*" class="form-control" [(ngModel)]="videoFile" 
+                    [ngModelOptions]="{standalone: true}" (change)="onVideoSelected($event)">
+            </div> -->
+            
+            <div class="mb-3">
+                <!-- <input type="text" placeholder="Product description" class="form-control" [(ngModel)]="productDesc"
+                    required [ngModelOptions]="{standalone: true}"> -->
+                <textarea placeholder="Product description" class="form-control" [(ngModel)]="productDesc" required
+                    [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+            <div style="margin-left: 40%; margin-right: 40%;">
+                <button type="submit" class="btn btn-info" [disabled]="!isValid()">Submit</button>
+            </div>
+
+        </form>
+    </div>
+</div>

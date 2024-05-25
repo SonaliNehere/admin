@@ -1,0 +1,51 @@
+.example-card {
+    margin-bottom: 8px;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .scrollablePart{
+    margin-top: 80px; /* Adjust based on the height of the toolbar */
+    /* padding: 20px;  */
+    overflow-y: auto;
+    /* height: calc(100vh - 64px);  */
+  }
+  
+  .mat-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+  
+    background-color: white; 
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .home{
+    color: black;
+  }
+  
+  .onEmptyOrder{
+    display: flex; justify-content: center; align-items: center; margin-top: 20px;
+  }
+  
+  .products{
+    display: flex; flex-direction: row; justify-content: space-between;
+  }
+  
+  .img{
+    margin: 10px;
+  }
+  
+  .desc{
+    margin: 10px;
+  }
+  
+  

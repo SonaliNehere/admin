@@ -1,0 +1,47 @@
+<!-- app.component.html or any other component template -->
+<app-loader *ngIf="isLoading"></app-loader>
+<mat-toolbar>
+  <span>The Kala Mart</span>
+  <span class="example-spacer"></span>
+  <div>
+    <div class="search-box" *ngIf="filteredProducts">
+      <mat-icon matPrefix class="searchIcon">
+        search
+      </mat-icon>
+      <input matInput type="text" placeholder="Search products..." [(ngModel)]="searchQuery" (input)="searchProducts()">
+    </div>
+    <button mat-raised-button (click)="addProduct()" class="addProduct"
+      *ngIf="email === 'sonalinehere802@gmail.com' && password === 'Sonali@123' ">Add Product
+    </button>
+    <button mat-icon-button (click)="openProfile()">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <!-- <button mat-icon-button (click)="openCart()">
+      <mat-icon aria-hidden="false" matBadge={{cartLength}} matBadgeSize="small"
+        matBadgeOverlap="true">shopping_cart</mat-icon>
+    </button> -->
+  </div>
+</mat-toolbar>
+
+<div class="scrollablePart">
+  <div class="productCard">
+    <mat-card class="example-card" *ngFor="let product of filteredProducts">
+      <img mat-card-image height="300px" [src]="product.imageUrl" [alt]="product.name" (click)="openProduct(product)" />
+      <mat-card-header>
+        <mat-card-subtitle>{{product.name}}</mat-card-subtitle>
+        <mat-card-subtitle
+          *ngIf="email === 'sonalinehere802@gmail.com' && password === 'Sonali@123'">{{product.id}}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>₹ {{product.price}}</p>
+      </mat-card-content>
+      <mat-card-actions *ngIf="email === 'sonalinehere802@gmail.com' && password === 'Sonali@123'">
+        <button mat-flat-button (click)="editProduct(product)" class="edit">Edit</button> &nbsp;
+        <button mat-flat-button (click)="deleteProduct(product.id,  product.imageUrl)" class="delete">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

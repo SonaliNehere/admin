@@ -1,0 +1,59 @@
+<mat-toolbar>
+    <span>Order Details</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="routeToHome()" class="home">
+        <mat-icon>home</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div class="scrollablePart">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+            <div class="desc1">
+                <div class="img">
+                    <img mat-card-lg-image [src]="data.product.product.imageUrl" alt="{{ data.product.product.name }}"
+                        (click)="openProduct(data.product.product)">
+                </div>
+                <div class="title-group" class="desc2">
+                    <mat-card-title>{{ data.product.product.name }}</mat-card-title>
+                    <mat-card-subtitle>₹{{data.product.product.price}}</mat-card-subtitle>
+                    <mat-card-subtitle>User Id : {{ data.docId }}</mat-card-subtitle>
+                    <mat-card-subtitle>Order Id : {{ data.orderId }}</mat-card-subtitle>
+                </div>
+            </div>
+        </mat-card-header>
+        <mat-divider class="divider1"></mat-divider>
+        <mat-card-content>
+            <div>
+                <mat-card-title>Order Tracking</mat-card-title>
+                <div class="margin">
+                    <mat-label>Ordered Placed</mat-label>
+                    <mat-card-subtitle>{{ data.dateOfOrdered | date:'medium' }}</mat-card-subtitle>
+                </div>
+                <div class="margin" *ngIf="data.product.product.isOrderCancled">
+                    <mat-label class="Cancelled">Ordered Cancelled</mat-label>
+                    <mat-card-subtitle>{{ data.product.product.dateOfOrderCancled | date:'medium' }}</mat-card-subtitle>
+                </div>
+
+                <div class="margin" *ngIf="data.product.product.dateOfOrderDelivered">
+                    <mat-label class="Delivered">Ordered Delivered</mat-label>
+                    <mat-card-subtitle>{{ data.product.product.dateOfOrderDelivered | date:'medium' }}</mat-card-subtitle>
+                </div>
+            </div>
+            <mat-divider class="divider2"></mat-divider>
+
+            <div class="margin">
+                <mat-card-title>Order Details</mat-card-title>
+                <mat-label>Price Details (Qty : {{data.product.quantity}})</mat-label><br>
+                <mat-label>Order Total : ₹{{data.product.orderTotal}}</mat-label>
+            </div>
+            <mat-divider class="divider2"></mat-divider>
+
+            <div class="margin">
+                <mat-card-title>Delivery Address</mat-card-title>
+                <mat-label> {{data.shippingAddress}}</mat-label><br>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+</div>

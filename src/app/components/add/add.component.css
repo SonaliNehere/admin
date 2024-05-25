@@ -1,0 +1,32 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.mat-divider {
+    margin-left: 10px;
+    /* Adjust left margin as needed */
+    margin-right: 10px;
+    /* Adjust right margin as needed */
+    margin-bottom: 10px;
+}
+
+.scrollablePart{
+    margin-top: 80px; /* Adjust based on the height of the toolbar */
+    /* padding: 20px;  */
+    overflow-y: auto;
+    /* height: calc(100vh - 64px);  */
+
+    width: 60%; margin-left: 20%; margin-right: 20%
+  }
+  
+  .mat-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+  
+    background-color: white; 
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  }
