@@ -1,6 +1,12 @@
 <mat-toolbar>
   <span>My Orders</span>
   <span class="example-spacer"></span>
+  <div class="search-box" *ngIf="filteredOrders">
+    <mat-icon matPrefix class="searchIcon">
+      search
+    </mat-icon>
+    <input matInput type="text" placeholder="Search products..." [(ngModel)]="searchQuery" (input)="searchOrders()">
+  </div>
   <button mat-icon-button (click)="routeToHome()" class="home">
     <mat-icon>home</mat-icon>
   </button>
@@ -10,7 +16,7 @@
   <div *ngIf="orders.length === 0" class="onEmptyOrder">
     <h1>No orders found </h1>
   </div>
-  <mat-card class="example-card" *ngFor="let order of orders.reverse()" appearance="outlined">
+  <mat-card class="example-card" *ngFor="let order of filteredOrders.reverse()" appearance="outlined">
     <mat-card-header>
       <div class="products">
         <div class="img">
@@ -23,10 +29,11 @@
           <mat-card-subtitle>Order placed on {{ order.dateOfOrdered | date:'medium'}}</mat-card-subtitle>
           <mat-card-actions>
             <button mat-flat-button (click)="deliverOrder(order.orderId, order.docId)"
-            *ngIf="!order.product.product.dateOfOrderDelivered && !order.product.product.isOrderCancled ">Deliver Order</button>
+              *ngIf="!order.product.product.dateOfOrderDelivered && !order.product.product.isOrderCancled ">Deliver
+              Order</button>
 
             <button mat-flat-button *ngIf="order.product.product.isOrderCancled" disabled="true"
-              [ngStyle]="{'color': 'red', 'background-color': 'transparent'}">Order Cancelled</button>
+              [ngStyle]="{'color': 'red', 'background-color': 'transparent'}">Order Cancelled </button>
 
             <button mat-flat-button *ngIf="order.product.product.dateOfOrderDelivered" disabled="true"
               [ngStyle]="{'color': 'green', 'background-color': 'transparent'}">Order Delivered</button>

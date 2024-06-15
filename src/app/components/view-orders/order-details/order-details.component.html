@@ -27,17 +27,18 @@
             <div>
                 <mat-card-title>Order Tracking</mat-card-title>
                 <div class="margin">
-                    <mat-label>Ordered Placed</mat-label>
+                    <mat-label>Order Placed</mat-label>
                     <mat-card-subtitle>{{ data.dateOfOrdered | date:'medium' }}</mat-card-subtitle>
                 </div>
                 <div class="margin" *ngIf="data.product.product.isOrderCancled">
-                    <mat-label class="Cancelled">Ordered Cancelled</mat-label>
+                    <mat-label class="Cancelled">Order Cancelled</mat-label>
                     <mat-card-subtitle>{{ data.product.product.dateOfOrderCancled | date:'medium' }}</mat-card-subtitle>
                 </div>
 
                 <div class="margin" *ngIf="data.product.product.dateOfOrderDelivered">
-                    <mat-label class="Delivered">Ordered Delivered</mat-label>
-                    <mat-card-subtitle>{{ data.product.product.dateOfOrderDelivered | date:'medium' }}</mat-card-subtitle>
+                    <mat-label class="Delivered">Order Delivered</mat-label>
+                    <mat-card-subtitle>{{ data.product.product.dateOfOrderDelivered | date:'medium'
+                        }}</mat-card-subtitle>
                 </div>
             </div>
             <mat-divider class="divider2"></mat-divider>

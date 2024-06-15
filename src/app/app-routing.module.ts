@@ -12,24 +12,21 @@ import { OrderDetailsComponent } from './components/view-orders/order-details/or
 import { ViewOrdersComponent } from './components/view-orders/view-orders.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'login', pathMatch:'full'},
-  {path: 'login', component : LoginComponent},
-  {path: 'dashboard', component : HomeComponent},
-  {path: 'register', component : RegisterComponent},
-  {path: 'varify-email', component : VarifyEmailComponent},
-  {path: 'forgot-password', component : ForgotPasswordComponent},
-  {path: 'product', component : ProductComponent},
-  {path: 'orders', component : ViewOrdersComponent},
-  // {path: 'cart', component : ViewCartComponent},
-  {path: 'order-details', component : OrderDetailsComponent},
-  // {path: 'user-form', component : UserFormComponent},
-  {path: 'add-product', component : AddComponent},
-  {path: 'edit-product', component : EditComponent},
-  // {path: 'front-page', component : FrontPageComponent},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: HomeComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'varify-email', component: VarifyEmailComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'product', component: ProductComponent },
+  { path: 'orders', component: ViewOrdersComponent },
+  { path: 'order-details', component: OrderDetailsComponent },
+  { path: 'add-product', component: AddComponent },
+  { path: 'edit-product', component: EditComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

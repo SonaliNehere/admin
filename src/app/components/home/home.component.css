@@ -1,94 +1,94 @@
 .example-card {
-    /* max-width: 400px;
+  /* max-width: 400px;
       margin: 5px; */
-    width: calc(20% - 25px);
-    /* Adjust the width as per your requirement */
-    margin: 10px;
-    /* Adjust margin as per your requirement */
-    border: 1px solid #ccc;
-    /* Optional: add border for visualization */
-  }
-  
-  .productCard {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-  
-  .scrollablePart {
-    margin-top: 80px;
-    /* Adjust based on the height of the toolbar */
-    /* padding: 20px;  */
-    overflow-y: auto;
-    /* height: calc(100vh - 64px);  */
-  }
-  
-  .mat-toolbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-  
-    background-color: white;
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  /* For WebKit browsers (Chrome, Safari) */
-  ::-webkit-scrollbar {
-    width: 10px;
-    /* Width of the scrollbar */
-  }
-  
-  /* For WebKit browsers (Chrome, Safari) */
-  ::-webkit-scrollbar-thumb {
-    background-color: #888;
-    /* Color of the thumb */
-    border-radius: 5px;
-    /* Border radius of the thumb */
-  }
-  
-  /* For WebKit browsers (Chrome, Safari) */
-  ::-webkit-scrollbar-track {
-    background-color: #eee;
-    /* Color of the track */
-  }
-  
-  .example-spacer {
-    flex: 1 1 auto;
-  }
-  
-  
-  
-  .search-box {
-    /* width: 230px; */
-    height: 35px;
-    /* top: 40px; */
-    bottom: 10px;
-    display: inline-flex;
-    background: #ffffff 0% 0% no-repeat padding-box;
-    box-shadow: 2px 2px 9px #430bd938;
-    border-radius: 10px;
-    opacity: 1;
-  
-    margin: 10px; margin-right: 20px; 
-  }
-  
-  .search-box input {
-    border: transparent;
-    outline: transparent;
-  }
-  
-  .searchIcon{
-    padding-top: 5px; padding-left: 5px; color:#62606C; margin-right: 5px;
-  }
-  
-  .addProduct{
-    margin: 10px; margin-right: 20px;
-  }
-  
-  .edit .delete{
-    width: 47%; 
-  }
+  width: calc(20% - 25px);
+  margin: 10px;
+  border: 1px solid #ccc;
+}
+
+.productCard {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.scrollablePart {
+  margin-top: 80px;
+  /* Adjust based on the height of the toolbar */
+  /* padding: 20px;  */
+  overflow-y: auto;
+  /* height: calc(100vh - 64px);  */
+}
+
+.mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  background-color: white;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+  /* Width of the scrollbar */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  /* Color of the thumb */
+  border-radius: 5px;
+  /* Border radius of the thumb */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar-track {
+  background-color: #eee;
+  /* Color of the track */
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.search-box {
+  /* width: 230px; */
+  height: 35px;
+  /* top: 40px; */
+  bottom: 10px;
+  display: inline-flex;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 2px 2px 9px #430bd938;
+  border-radius: 10px;
+  opacity: 1;
+
+  margin: 10px;
+  margin-right: 20px;
+}
+
+.search-box input {
+  border: transparent;
+  outline: transparent;
+}
+
+.searchIcon {
+  padding-top: 5px;
+  padding-left: 5px;
+  color: #62606C;
+  margin-right: 5px;
+}
+
+.addProduct {
+  margin: 10px;
+  margin-right: 20px;
+}
+
+.edit .delete {
+  width: 47%;
+}

@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider } from '@angular/fire/auth';
+import {
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  FacebookAuthProvider,
+} from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable, switchMap, of } from 'rxjs';
 
@@ -9,11 +13,13 @@ import { Observable, switchMap, of } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private fireauth: AngularFireAuth,
-     private router: Router,   
-     private fireStorage: AngularFireStorage,) {}
+  constructor(
+    private fireauth: AngularFireAuth,
+    private router: Router,
+    private fireStorage: AngularFireStorage
+  ) {}
 
-  uid ?: string = '';
+  uid?: string = '';
   email: any;
   password: any;
 
@@ -21,8 +27,8 @@ export class AuthService {
   login(email: string, password: string) {
     this.fireauth.signInWithEmailAndPassword(email, password).then(
       (res) => {
-        console.log("res of : login", res );
-        console.log(" uid : ", res?.user?.uid);
+        console.log('res of : login', res);
+        console.log(' uid : ', res?.user?.uid);
         this.uid = res?.user?.uid!.toString();
         this.email = email;
         this.password = password;
@@ -30,8 +36,8 @@ export class AuthService {
         localStorage.setItem('token', 'true');
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
-        localStorage.setItem('uid',  this.uid!.toString());
-        
+        localStorage.setItem('uid', this.uid!.toString());
+
         if (res.user?.emailVerified == true) {
           this.router.navigate(['dashboard']);
         } else {
@@ -40,7 +46,7 @@ export class AuthService {
       },
       (err) => {
         // alert(err.message);
-        alert("Invalid id or password entered");
+        alert('Invalid id or password entered');
         this.router.navigate(['/login']);
       }
     );
@@ -50,8 +56,8 @@ export class AuthService {
   register(email: string, password: string) {
     this.fireauth.createUserWithEmailAndPassword(email, password).then(
       (res) => {
-        console.log("res of : register", res);
-        console.log(" uid : ", res?.user?.uid);
+        console.log('res of : register', res);
+        console.log(' uid : ', res?.user?.uid);
         alert('Registration Successful');
         this.sendEmailForVarification(res.user);
         this.router.navigate(['/login']);
@@ -116,14 +122,4 @@ export class AuthService {
       }
     );
   }
-
-
-  
-
-
-
-
-
-
-
 }

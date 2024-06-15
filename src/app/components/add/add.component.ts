@@ -20,47 +20,46 @@ export class AddComponent {
     private fireStorage: AngularFireStorage,
     private firestore: AngularFirestore,
     private _snackBar: MatSnackBar,
-    private router: Router,
+    private router: Router
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   async submitForm() {
-      try {
-        // Upload image to Firebase Storage
-        const file = this.imageUrl;
-        const path = `productImages/${file?.name}`;
-        const uploadTask = await this.fireStorage.upload(path, file);
+    try {
+      // Upload image to Firebase Storage
+      const file = this.imageUrl;
+      const path = `productImages/${file?.name}`;
+      const uploadTask = await this.fireStorage.upload(path, file);
 
-        // Get image URL as Observable
-        const downloadUrl$ = this.fireStorage.ref(path).getDownloadURL();
+      // Get image URL as Observable
+      const downloadUrl$ = this.fireStorage.ref(path).getDownloadURL();
 
-        // Subscribe to the Observable to get the actual URL
-        downloadUrl$.subscribe(async (downloadUrl) => {
-          const imageUrl = downloadUrl.toString(); // Convert the URL to string
+      // Subscribe to the Observable to get the actual URL
+      downloadUrl$.subscribe(async (downloadUrl) => {
+        const imageUrl = downloadUrl.toString(); // Convert the URL to string
 
-          const docRef = await this.firestore.collection('products').add({
-            name: this.productName,
-            price: this.price,
-            imageUrl: imageUrl,
-            desc: this.productDesc,
-          });
-          const productId = docRef.id; // Capture the ID of the newly added document
-          await docRef.update({ id: productId });
-          this.openSnackBar('Product Added Successfully ', 'Close');
-          // Clear form fields after successful submission
-          this.productName = '';
-          this.productDesc = '';
-          this.price = undefined;
-          this.imageUrl = null; // Reset imageUrl
+        const docRef = await this.firestore.collection('products').add({
+          name: this.productName,
+          price: this.price,
+          imageUrl: imageUrl,
+          desc: this.productDesc,
         });
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        // Handle error, display a message to the user, etc.
-        this.openSnackBar('Error submitting form: ' + error, 'Close');
-      }
-      this.routeToHome();
+        const productId = docRef.id; // Capture the ID of the newly added document
+        await docRef.update({ id: productId });
+        this.openSnackBar('Product Added Successfully ', 'Close');
+        // Clear form fields after successful submission
+        this.productName = '';
+        this.productDesc = '';
+        this.price = undefined;
+        this.imageUrl = null; // Reset imageUrl
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Handle error, display a message to the user, etc.
+      this.openSnackBar('Error submitting form: ' + error, 'Close');
+    }
+    this.routeToHome();
   }
 
   onFileSelected(event: any) {
@@ -77,12 +76,11 @@ export class AddComponent {
     this.router.navigate(['dashboard']);
   }
 
-  isValid(){
-    if( this.productName && this.productDesc && this.price &&  this.imageUrl){
+  isValid() {
+    if (this.productName && this.productDesc && this.price && this.imageUrl) {
       return true;
-    }
-    else{
-      return false
+    } else {
+      return false;
     }
   }
 }

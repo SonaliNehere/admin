@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrl: './edit.component.css',
 })
 export class EditComponent {
-  data: any
+  data: any;
 
   id: any;
   productName: string = '';
@@ -28,13 +28,11 @@ export class EditComponent {
   imageUpdated: boolean = false;
 
   constructor(
-    // @Inject(MAT_DIALOG_DATA) public data: any,
-    // public dialogRef: MatDialogRef<EditComponent>,
     private fireStorage: AngularFireStorage,
     private firestore: AngularFirestore,
     private _snackBar: MatSnackBar,
     private dataService: DataService,
-    private router: Router,
+    private router: Router
   ) {
     this.data = this.dataService.getEditableData();
     console.log('data : ', this.data);
@@ -117,12 +115,11 @@ export class EditComponent {
     this.router.navigate(['dashboard']);
   }
 
-  isValid(){
-    if( this.productName && this.productDesc && this.price &&  this.urlString){
+  isValid() {
+    if (this.productName && this.productDesc && this.price && this.urlString) {
       return true;
-    }
-    else{
-      return false
+    } else {
+      return false;
     }
   }
 }

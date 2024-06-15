@@ -7,32 +7,32 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
 
-  constructor(private auth: AuthService,
+  email: any;
+  orderLength = 0;
+
+  constructor(
+    private auth: AuthService,
     private dialogRef: MatDialogRef<ProfileComponent>,
-    private router: Router,
-  ){
+    private router: Router
+  ) {
     this.email = localStorage.getItem('email');
   }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-   
   }
-
-  email: any;
 
   logout() {
     this.dialogRef.close();
     this.auth.logout();
   }
 
-  myOrders(){
+  myOrders() {
     this.router.navigate(['orders']);
     this.dialogRef.close();
   }
-
 }

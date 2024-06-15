@@ -7,12 +7,13 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable, finalize } from 'rxjs';
 import { EditComponent } from '../edit/edit.component';
 import { AddComponent } from '../add/add.component';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { DataService } from '../../shared/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProfileComponent } from '../profile/profile.component';
 import { LoaderService } from '../../shared/loader.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  products$: Observable<any[]>;
+  // products$: Observable<any[]>;
 
   // Define variables for search functionality
   searchQuery: string = '';
@@ -39,8 +40,10 @@ export class HomeComponent {
   selectedFile: File | null = null;
 
   cartLength = 0;
+  orderLength = 0;
 
   isLoading: boolean = false;
+
   constructor(
     private dialog: MatDialog,
     private dataService: DataService,
@@ -50,13 +53,17 @@ export class HomeComponent {
     private firestore: AngularFirestore,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private messaging: AngularFireMessaging
   ) {
+    this.fetchOrders();
+    this.router.navigate(['dashboard']);
+    this.playAudio();
     this.email = localStorage.getItem('email');
     console.log('user : ', this.email);
 
     // Retrieve products from Firestore
-    this.products$ = this.firestore.collection('products').valueChanges();
+    // this.products$ = this.firestore.collection('products').valueChanges();
   }
 
   ngOnInit() {
@@ -75,23 +82,16 @@ export class HomeComponent {
         this.filteredProducts = [...products]; // Initialize filtered products with all products
       });
 
-    //cart lenght
-    this.dataService.getCartProducts().subscribe((res: any) => {
-      console.log('Products : ', res.products);
-      this.cartLength = res.products.length;
-      console.log('cartLength : ', this.cartLength);
-      
-    });
     this.isLoading = this.loaderService.hide();
+  }
 
+  playAudio() {
+    const audio = new Audio('/assets/notification.mp3');
+    audio.play();
+    console.log("audio played");
   }
 
   openProduct(item: any): void {
-    // const dialogRef = this.dialog.open(ProductComponent, {
-    //   width: '600px',
-    //   height: '400px',
-    //   data: item,
-    // });
     this.dataService.setData(item);
     this.router.navigate(['product']);
   }
@@ -101,14 +101,10 @@ export class HomeComponent {
   }
 
   addProduct() {
-    // const dialogRef = this.dialog.open(AddComponent);
     this.router.navigate(['add-product']);
   }
 
   editProduct(product: any) {
-    // const dialogRef = this.dialog.open(EditComponent, {
-    //   data: product,
-    // });
     this.dataService.setEditableData(product);
     this.router.navigate(['edit-product']);
   }
@@ -150,13 +146,6 @@ export class HomeComponent {
   }
 
   // Function to filter products based on search query
-  // searchProducts() {
-  //   this.filteredProducts = this.products.filter(product =>
-  //     product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-  //   );
-  // }
-
-  // Function to filter products based on search query
   searchProducts() {
     this.filteredProducts = this.products.filter((product) =>
       this.matchesSearchCriteria(product)
@@ -191,7 +180,50 @@ export class HomeComponent {
     const dialogRef = this.dialog.open(ProfileComponent, dialogConfig);
   }
 
-  openCart() {
-    this.router.navigate(['cart']);
+  fetchOrders() {
+    this.dataService.getAllOrders().subscribe(
+      (orders) => {
+        let pendingOrdersLength = orders.length;
+        // this.orders = orders;
+        console.log('Orders:', orders);
+        console.log("all orders length : ", orders.length);
+        for(const order of orders){
+          if(order.product.product.isOrderCancled){
+            pendingOrdersLength-- ;
+          }
+          // console.log("isOrderCancled : ", order.product.product.isOrderCancled);
+          if(order.product.product.dateOfOrderDelivered){
+            pendingOrdersLength-- ;
+          }
+        }
+        this.orderLength = pendingOrdersLength ;
+        console.log("pending orders length : ",  pendingOrdersLength);
+        this.playAudio();
+      },
+      (error) => {
+        console.error('Error fetching orders:', error);
+      }
+    );
   }
+
+  myOrders() {
+    this.router.navigate(['orders']);
+    // this.dialogRef.close();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

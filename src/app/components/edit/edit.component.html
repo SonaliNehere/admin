@@ -1,34 +1,34 @@
-<mat-toolbar >
-    <span>Edit Product</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button style="color: black;" (click)="routeToHome()">
-      <mat-icon>home</mat-icon>
-    </button>
-  
-  </mat-toolbar>
-  <mat-divider></mat-divider>
-  
-  <div class="card shadow scrollablePart" style="width: 60%; margin-left: 20%; margin-right: 20%;">
-    <div class="card-body">
-      <form (ngSubmit)="submitForm()">
-        <div class="mb-3">
-          <input type="text" placeholder="Product Name" class="form-control" name="productName" [(ngModel)]="productName"
-            required>
-        </div>
-        <div class="mb-3">
-          <input type="number" placeholder="Price" class="form-control" name="price" [(ngModel)]="price" required>
-        </div>
-        <div class="mb-3">
-          <input type="file" placeholder="File" class="form-control" [(ngModel)]="imageUrl" required
-            [ngModelOptions]="{standalone: true}" (change)="onFileSelected($event)">
-        </div>
-        <div class="mb-3">
-          <input type="text" placeholder="Product description" class="form-control" name="productDesc"
-            [(ngModel)]="productDesc" required>
-        </div>
-        <div style="margin-left: 40%; margin-right: 40%;">
-          <button type="submit" class="btn btn-info" [disabled]="!isValid()">Submit</button>
-        </div>
-      </form>
-    </div>
+<mat-toolbar>
+  <span>Edit Product</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button style="color: black;" (click)="routeToHome()">
+    <mat-icon>home</mat-icon>
+  </button>
+
+</mat-toolbar>
+<mat-divider></mat-divider>
+
+<div class="card shadow scrollablePart" style="width: 60%; margin-left: 20%; margin-right: 20%;">
+  <div class="card-body">
+    <form (ngSubmit)="submitForm()">
+      <div class="mb-3">
+        <input type="text" placeholder="Product Name" class="form-control" name="productName" [(ngModel)]="productName"
+          required>
+      </div>
+      <div class="mb-3">
+        <input type="number" placeholder="Price" class="form-control" name="price" [(ngModel)]="price" required>
+      </div>
+      <div class="mb-3">
+        <input type="file" placeholder="File" class="form-control" [(ngModel)]="imageUrl" required
+          [ngModelOptions]="{standalone: true}" (change)="onFileSelected($event)">
+      </div>
+      <div class="mb-3">
+        <input type="text" placeholder="Product description" class="form-control" name="productDesc"
+          [(ngModel)]="productDesc" required>
+      </div>
+      <div style="margin-left: 40%; margin-right: 40%;">
+        <button type="submit" class="btn btn-info" [disabled]="!isValid()">Submit</button>
+      </div>
+    </form>
   </div>
+</div>

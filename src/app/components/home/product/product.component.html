@@ -1,33 +1,32 @@
 <div class="parent">
-    <div class="container">
-      <div class="example-card1">
-        <img mat-card-image [src]="data.imageUrl" alt="data.name" class="img" />
-        <br>
-        <div style="margin-top: 10px;">
-          <!-- <mat-card-actions>
+  <div class="container">
+    <div class="example-card1">
+      <img mat-card-image [src]="data.imageUrl" alt="data.name" class="img" />
+      <br>
+      <div style="margin-top: 10px;">
+        <!-- <mat-card-actions>
             <button mat-button mat-stroked-button (click)="addToCart(1)" class="addTocart">Add to Cart </button>
             &nbsp;
             <button mat-flat-button class="buy" (click)="openForm(data)"> Buy Now </button>
           </mat-card-actions> -->
-        </div>
-      </div>
-  
-      <div class="example-card2">
-        <div class="title">
-          <mat-card-header>
-            <mat-card-title class="name">
-              {{ data.name }} </mat-card-title>
-            <p class="price">₹ {{data.price}}</p>
-          </mat-card-header>
-        </div>
-  
-        <div class="details" *ngIf="data.desc">
-          <mat-card-content>
-            <mat-card-title class="detailTitle">Product Details</mat-card-title>
-            <p class="desc">{{data.desc}}</p>
-          </mat-card-content>
-        </div>
-  
       </div>
     </div>
-  
+
+    <div class="example-card2">
+      <div class="title">
+        <mat-card-header>
+          <mat-card-title class="name">
+            {{ data.name }} </mat-card-title>
+          <p class="price">₹ {{data.price}}</p>
+        </mat-card-header>
+      </div>
+
+      <div class="details" *ngIf="data.desc">
+        <mat-card-content>
+          <mat-card-title class="detailTitle">Product Details</mat-card-title>
+          <p class="desc">{{data.desc}}</p>
+        </mat-card-content>
+      </div>
+
+    </div>
+  </div>

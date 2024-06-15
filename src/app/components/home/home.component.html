@@ -1,4 +1,3 @@
-<!-- app.component.html or any other component template -->
 <app-loader *ngIf="isLoading"></app-loader>
 <mat-toolbar>
   <span>The Kala Mart</span>
@@ -10,16 +9,15 @@
       </mat-icon>
       <input matInput type="text" placeholder="Search products..." [(ngModel)]="searchQuery" (input)="searchProducts()">
     </div>
+    <button mat-button matBadge={{orderLength}} matBadgeSize="small"
+        matBadgeOverlap="true" matBadgePosition="after"
+            (click)="myOrders()"><mat-icon>shopping_bag</mat-icon>All Orders</button>&nbsp;
     <button mat-raised-button (click)="addProduct()" class="addProduct"
       *ngIf="email === 'sonalinehere802@gmail.com' && password === 'Sonali@123' ">Add Product
     </button>
     <button mat-icon-button (click)="openProfile()">
       <mat-icon>account_circle</mat-icon>
     </button>
-    <!-- <button mat-icon-button (click)="openCart()">
-      <mat-icon aria-hidden="false" matBadge={{cartLength}} matBadgeSize="small"
-        matBadgeOverlap="true">shopping_cart</mat-icon>
-    </button> -->
   </div>
 </mat-toolbar>
 

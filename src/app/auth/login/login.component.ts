@@ -25,10 +25,17 @@ export class LoginComponent {
       return;
     }
 
-    this.auth.login(this.email, this.password);
+    if (
+      this.email === 'sonalinehere802@gmail.com' &&
+      this.password === 'Sonali@123'
+    ) {
+      this.auth.login(this.email, this.password);
 
-    this.email = '';
-    this.password = '';
+      this.email = '';
+      this.password = '';
+    } else {
+      alert('Unauthorized user ');
+    }
   }
 
   signInWithGoogle() {
