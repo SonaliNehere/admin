@@ -8,6 +8,9 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable, switchMap, of } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +19,8 @@ export class AuthService {
   constructor(
     private fireauth: AngularFireAuth,
     private router: Router,
-    private fireStorage: AngularFireStorage
+    private fireStorage: AngularFireStorage,
+    private dialog: MatDialog
   ) {}
 
   uid?: string = '';
@@ -46,7 +50,12 @@ export class AuthService {
       },
       (err) => {
         // alert(err.message);
-        alert('Invalid id or password entered');
+        // alert('Invalid id or password entered');
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: 'Invalid id or password entered'
+          }
+        });
         this.router.navigate(['/login']);
       }
     );
@@ -71,19 +80,41 @@ export class AuthService {
 
   // sign out
   logout() {
-    if (confirm('Are you sure you want to sign out?')) {
-      this.fireauth.signOut().then(
-        () => {
-          localStorage.removeItem('token');
-          localStorage.removeItem('email');
-          localStorage.removeItem('password');
-          this.router.navigate(['/login']);
-        },
-        (err) => {
-          alert(err.message);
-        }
-      );
-    }
+    // if (confirm('Are you sure you want to sign out?')) {
+    const dialogConfig = new MatDialogConfig();
+
+    // Set the position of the dialog
+    dialogConfig.position = {
+      top: '250px',
+      // right: '20px',
+    };
+
+    dialogConfig.data = {
+      message: 'Are you sure you want to sign out?',
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.fireauth.signOut().then(
+          () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+            this.router.navigate(['/login']);
+          },
+          (err) => {
+            // alert(err.message);
+            this.dialog.open(ErrorDialogComponent, {
+              data: {
+                message: err.message
+              }
+            });
+          }
+        );
+      }
+    });
+    // }
   }
 
   // forgot password

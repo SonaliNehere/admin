@@ -19,16 +19,16 @@ export class OrderDetailsComponent {
     console.log('priceData : ', this.priceData);
   }
 
-  cancelOrder(orderId: any) {
-    this.dataService
-      .cancelOrder(orderId)
-      ?.then((res: any) => {
-        console.log('order cancelled');
-      })
-      .catch((error) => {
-        console.error('Error canceling orders:', error);
-      });
-  }
+  // cancelOrder(orderId: any) {
+  //   this.dataService
+  //     .cancelOrder(orderId)
+  //     ?.then((res: any) => {
+  //       console.log('order cancelled');
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error canceling orders:', error);
+  //     });
+  // }
 
   openProduct(item: any): void {
     this.dataService.setData(item);

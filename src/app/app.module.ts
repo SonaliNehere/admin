@@ -63,6 +63,9 @@ import { AddComponent } from './components/add/add.component';
 import { EditComponent } from './components/edit/edit.component';
 import { ViewOrdersComponent } from './components/view-orders/view-orders.component';
 import { OrderDetailsComponent } from './components/view-orders/order-details/order-details.component';
+import { NewlineToBrPipe } from './newline-to-br.pipe';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,9 @@ import { OrderDetailsComponent } from './components/view-orders/order-details/or
     EditComponent,
     ViewOrdersComponent,
     OrderDetailsComponent,
+    NewlineToBrPipe,
+    ConfirmDialogComponent,
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,

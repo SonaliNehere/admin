@@ -17,13 +17,24 @@
                 <div class="title-group" class="desc2">
                     <mat-card-title>{{ data.product.product.name }}</mat-card-title>
                     <mat-card-subtitle>₹{{data.product.product.price}}</mat-card-subtitle>
-                    <mat-card-subtitle>User Id : {{ data.docId }}</mat-card-subtitle>
-                    <mat-card-subtitle>Order Id : {{ data.orderId }}</mat-card-subtitle>
+                    <!-- <mat-card-subtitle>User Id : {{ data.docId }}</mat-card-subtitle>
+                    <mat-card-subtitle>Order Id : {{ data.orderId }}</mat-card-subtitle> -->
                 </div>
             </div>
         </mat-card-header>
         <mat-divider class="divider1"></mat-divider>
         <mat-card-content>
+            <div>
+                <div class="margin">
+                    <!-- <mat-label>Order Id</mat-label> -->
+                    <mat-card-subtitle>Order Id : {{ data.orderId }}</mat-card-subtitle>
+                </div>
+                <div class="margin">
+                    <!-- <mat-label class="Cancelled">Order Cancelled</mat-label> -->
+                    <mat-card-subtitle>User Id : {{ data.docId }}</mat-card-subtitle>
+                </div>
+            </div>
+            <mat-divider class="divider2"></mat-divider>
             <div>
                 <mat-card-title>Order Tracking</mat-card-title>
                 <div class="margin">

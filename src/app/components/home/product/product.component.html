@@ -1,6 +1,6 @@
 <div class="parent">
   <div class="container">
-    <div class="example-card1">
+    <div class="example-card1 col-12 col-md-6">
       <img mat-card-image [src]="data.imageUrl" alt="data.name" class="img" />
       <br>
       <div style="margin-top: 10px;">
@@ -12,19 +12,25 @@
       </div>
     </div>
 
-    <div class="example-card2">
+    <div class="example-card2 col-12 col-md-6">
       <div class="title">
         <mat-card-header>
-          <mat-card-title class="name">
-            {{ data.name }} </mat-card-title>
-          <p class="price">₹ {{data.price}}</p>
+          <mat-card-title class="name">{{ data.name }} </mat-card-title>
+          <p class="price">₹ {{data.price}}  </p>
+          <p class="desc"> shipping charges will be added </p>
         </mat-card-header>
       </div>
 
       <div class="details" *ngIf="data.desc">
         <mat-card-content>
           <mat-card-title class="detailTitle">Product Details</mat-card-title>
-          <p class="desc">{{data.desc}}</p>
+          <!-- <p class="desc">{{data.desc}}</p> -->
+          <p class="desc" [innerHTML]="data.desc | newlineToBr"></p>
+          <p class="desc" *ngIf="data.productVideoLink">Product video link : </p> 
+          <a [href]="data.productVideoLink" [attr.target]="'_blank'">{{data.productVideoLink}}</a>
+          <!-- <a [href]="getYouTubeLink(data.productVideoLink)" [attr.target]="getLinkTarget(data.productVideoLink)">
+            {{data.productVideoLink}}
+          </a> -->
         </mat-card-content>
       </div>
 

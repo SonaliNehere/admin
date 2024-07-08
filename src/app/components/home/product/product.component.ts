@@ -31,4 +31,29 @@ export class ProductComponent {
       duration: 2000, // Specify the duration in milliseconds
     });
   }
+
+  isYouTubeLink(link: string): boolean {
+    return link.includes('youtube.com') || link.includes('youtu.be');
+  }
+
+  getYouTubeLink(link: string): string {
+    // Convert to YouTube app link if necessary
+    if (this.isYouTubeLink(link)) {
+      if (link.includes('youtube.com')) {
+        return link.replace('https://www.youtube.com', 'vnd.youtube');
+      } else if (link.includes('youtu.be')) {
+        return link.replace('https://youtu.be', 'vnd.youtube');
+      }
+    }
+    return link;
+  }
+
+  getLinkTarget(link: string): string {
+    // Return '_self' for YouTube links to open in app, '_blank' otherwise
+    return this.isYouTubeLink(link) ? '_self' : '_blank';
+  }
+
+
+
+
 }

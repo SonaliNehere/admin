@@ -14,6 +14,8 @@ import { ProfileComponent } from '../profile/profile.component';
 import { LoaderService } from '../../shared/loader.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
+import { MediaQueryService } from '../../shared/media-query.service';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -43,6 +45,7 @@ export class HomeComponent {
   orderLength = 0;
 
   isLoading: boolean = false;
+  isMobile!: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -54,11 +57,12 @@ export class HomeComponent {
     private router: Router,
     private _snackBar: MatSnackBar,
     private loaderService: LoaderService,
-    private messaging: AngularFireMessaging
+    private messaging: AngularFireMessaging,
+    private mediaQueryService: MediaQueryService
   ) {
     this.fetchOrders();
-    this.router.navigate(['dashboard']);
-    this.playAudio();
+    // this.router.navigate(['dashboard']);
+    // this.playAudio();
     this.email = localStorage.getItem('email');
     console.log('user : ', this.email);
 
@@ -80,15 +84,18 @@ export class HomeComponent {
       .subscribe((products) => {
         this.products = products;
         this.filteredProducts = [...products]; // Initialize filtered products with all products
+        this.isLoading = this.loaderService.hide();
       });
 
-    this.isLoading = this.loaderService.hide();
+    this.mediaQueryService.isMobile$.subscribe((isMobile) => {
+      this.isMobile = isMobile;
+    });
   }
 
   playAudio() {
     const audio = new Audio('/assets/notification.mp3');
     audio.play();
-    console.log("audio played");
+    console.log('audio played');
   }
 
   openProduct(item: any): void {
@@ -105,38 +112,74 @@ export class HomeComponent {
   }
 
   editProduct(product: any) {
-    this.dataService.setEditableData(product);
-    this.router.navigate(['edit-product']);
+    const dialogConfig = new MatDialogConfig();
+
+    // Set the position of the dialog
+    dialogConfig.position = {
+      top: '250px',
+      // right: '20px',
+    };
+
+    dialogConfig.data = {
+      message: 'Are you sure you want to update this product?',
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.dataService.setEditableData(product);
+        this.router.navigate(['edit-product']);
+      }
+    });
   }
 
   deleteProduct(productId: string, imageUrl: string) {
     console.log('productId : ', productId);
-    if (confirm('Are you sure you want to delete this product?')) {
-      // Delete the product from Firestore
-      console.log(this.firestore.collection('products').doc(productId));
-      this.firestore
-        .collection('products')
-        .doc(productId)
-        .delete()
-        .then(() => {
-          console.log('Product deleted successfully');
-          this.openSnackBar('Product Deleted Successfully ', 'Close');
-        })
-        .catch((error) => {
-          console.error('Error deleting product:', error);
-          this.openSnackBar('Error deleting product: ' + error, 'Close');
-        });
+    // if (confirm('Are you sure you want to delete this product?')) {
+    const dialogConfig = new MatDialogConfig();
 
-      // Delete the image from Firebase Storage
-      this.fireStorage
-        .refFromURL(imageUrl)
-        .delete()
-        .pipe(finalize(() => console.log('Image deleted successfully')))
-        .subscribe({
-          next: () => console.log('Image deletion completed'),
-          error: (err) => console.error('Error deleting image:', err),
-        });
-    }
+    // Set the position of the dialog
+    dialogConfig.position = {
+      top: '250px',
+      // right: '20px',
+    };
+
+    dialogConfig.data = {
+      message: 'Are you sure you want to delete this product?',
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Delete the product from Firestore
+        console.log(this.firestore.collection('products').doc(productId));
+        this.firestore
+          .collection('products')
+          .doc(productId)
+          .delete()
+          .then(() => {
+            console.log('Product deleted successfully');
+            this.openSnackBar('Product Deleted Successfully ', 'Close');
+          })
+          .catch((error) => {
+            console.error('Error deleting product:', error);
+            this.openSnackBar('Error deleting product: ' + error, 'Close');
+          });
+
+        // Delete the image from Firebase Storage
+        this.fireStorage
+          .refFromURL(imageUrl)
+          .delete()
+          .pipe(finalize(() => console.log('Image deleted successfully')))
+          .subscribe({
+            next: () => console.log('Image deletion completed'),
+            error: (err) => console.error('Error deleting image:', err),
+          });
+      }
+    });
+    // }
   }
 
   openSnackBar(message: string, action: string) {
@@ -186,19 +229,22 @@ export class HomeComponent {
         let pendingOrdersLength = orders.length;
         // this.orders = orders;
         console.log('Orders:', orders);
-        console.log("all orders length : ", orders.length);
-        for(const order of orders){
-          if(order.product.product.isOrderCancled){
-            pendingOrdersLength-- ;
+        console.log('all orders length : ', orders.length);
+        for (const order of orders) {
+          if (order.product.product.isOrderCancled) {
+            pendingOrdersLength--;
           }
           // console.log("isOrderCancled : ", order.product.product.isOrderCancled);
-          if(order.product.product.dateOfOrderDelivered){
-            pendingOrdersLength-- ;
+          if (order.product.product.dateOfOrderDelivered) {
+            pendingOrdersLength--;
           }
         }
-        this.orderLength = pendingOrdersLength ;
-        console.log("pending orders length : ",  pendingOrdersLength);
+        this.orderLength = pendingOrdersLength;
+        console.log('pending orders length : ', pendingOrdersLength);
         this.playAudio();
+        // const audio = new Audio('/assets/mixkit-urgent-simple-tone-loop-2976.wav');
+        // audio.play();
+        // console.log('audio played');
       },
       (error) => {
         console.error('Error fetching orders:', error);
@@ -210,20 +256,4 @@ export class HomeComponent {
     this.router.navigate(['orders']);
     // this.dialogRef.close();
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

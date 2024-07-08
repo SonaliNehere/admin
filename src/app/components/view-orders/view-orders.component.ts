@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../shared/data.service';
 import { Router } from '@angular/router';
+import { MediaQueryService } from '../../shared/media-query.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-view-orders',
@@ -12,11 +15,22 @@ export class ViewOrdersComponent {
 
   searchQuery: string = '';
   filteredOrders: any[] = [];
+  
+  isMobile!: boolean;
 
-  constructor(private dataService: DataService, private router: Router) {}
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private mediaQueryService: MediaQueryService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     this.fetchOrders();
+
+    this.mediaQueryService.isMobile$.subscribe(isMobile => {
+      this.isMobile = isMobile;
+    });
   }
 
   fetchOrders() {
@@ -33,7 +47,23 @@ export class ViewOrdersComponent {
   }
 
   deliverOrder(orderId: any, uid: any) {
-    if (confirm('Are you sure you want to deliver this order?')) {
+    // if (confirm('Are you sure you want to deliver this order?')) {
+      const dialogConfig = new MatDialogConfig();
+
+      // Set the position of the dialog
+      dialogConfig.position = {
+        top: '250px',
+        // right: '20px',
+      };
+  
+      dialogConfig.data = {
+        message: 'Are you sure you want to deliver this order?',
+      };
+  
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+  
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result) {
       this.dataService
         .deliveredOrder(orderId, uid)
         ?.then((res: any) => {
@@ -42,7 +72,9 @@ export class ViewOrdersComponent {
         .catch((error) => {
           console.error('Error delivering orders:', error);
         });
-    }
+      }
+    });
+    // }
   }
 
   viewOrder(order: any) {
@@ -59,8 +91,7 @@ export class ViewOrdersComponent {
     this.filteredOrders = this.orders.filter((order) =>
       this.matchesSearchCriteria(order)
     );
-    console.log("filteredOrders : ", this.filteredOrders);
-
+    console.log('filteredOrders : ', this.filteredOrders);
   }
 
   // Function to check if a product matches the search criteria
@@ -71,6 +102,4 @@ export class ViewOrdersComponent {
       value.toString().toLowerCase().includes(searchQueryLower)
     );
   }
-
-
 }
