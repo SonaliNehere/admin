@@ -1,0 +1,14 @@
+{
+  "routes": [
+    "/add-product",
+    "/dashboard",
+    "/edit-product",
+    "/forgot-password",
+    "/login",
+    "/order-details",
+    "/orders",
+    "/product",
+    "/register",
+    "/varify-email"
+  ]
+}
