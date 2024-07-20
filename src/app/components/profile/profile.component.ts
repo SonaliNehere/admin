@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
-
   email: any;
   orderLength = 0;
 

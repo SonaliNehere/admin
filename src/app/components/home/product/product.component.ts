@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product',
@@ -21,7 +22,8 @@ export class ProductComponent {
     private fireStorage: AngularFireStorage,
     private firestore: AngularFirestore,
     private _snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.data = this.dataService.getData();
   }
@@ -53,7 +55,11 @@ export class ProductComponent {
     return this.isYouTubeLink(link) ? '_self' : '_blank';
   }
 
+  routeToHome() {
+    this.router.navigate(['dashboard']);
+  }
 
-
-
+  routeBack() {
+    this.location.back(); // Navigate back to the previous page
+  }
 }

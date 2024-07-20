@@ -167,7 +167,8 @@
   margin-bottom: 5px;
 }
 
-.search-box input, .search-box1 input {
+.search-box input,
+.search-box1 input {
   border: transparent;
   outline: transparent;
 }
@@ -193,8 +194,8 @@
     width: calc(100% - 25px);
   }
 
-  .img{
-    height:330px;
+  .img {
+    height: 330px;
   }
 }
 
@@ -203,8 +204,8 @@
     width: calc(50% - 20px);
   }
 
-  .img{
-    height:250px;
+  .img {
+    height: 250px;
   }
 }
 
@@ -215,8 +216,8 @@
     width: calc(33.33% - 20px);
   }
 
-  .img{
-    height:270px;
+  .img {
+    height: 270px;
   }
 }
 
@@ -225,8 +226,8 @@
     width: calc(33.33% - 20px);
   }
 
-  .img{
-    height:300px;
+  .img {
+    height: 300px;
   }
 }
 
@@ -237,10 +238,10 @@
     width: calc(25% - 20px);
   }
 
-  .img{
-    height:270px;
+  .img {
+    height: 270px;
   }
-  
+
 }
 
 @media (min-width: 1000px) {
@@ -249,10 +250,10 @@
     width: calc(25% - 20px);
   }
 
-  .img{
-    height:300px;
+  .img {
+    height: 300px;
   }
-  
+
 }
 
 /* Laptop/Desktop Devices */
@@ -262,7 +263,7 @@
     width: calc(20% - 25px);
   }
 
-  .img{
-    height:300px;
+  .img {
+    height: 300px;
   }
 }

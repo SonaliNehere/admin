@@ -200,7 +200,7 @@ export class DataService {
             // orders[orderIndex].product.product.isOrderCancled = true;
             // orders[orderIndex].isOrderCancled = true;
             orders[orderIndex].product.product.dateOfOrderDelivered =
-            dateOfDelivered;
+              dateOfDelivered;
             console.log('orders[orderIndex] : ', orders[orderIndex]);
             console.log('Order delivered:', orderId);
           } else {
@@ -218,21 +218,24 @@ export class DataService {
       });
   }
 
+  // Function to get user details
+  getUserDetails(uid: any) {
+    const userDocRef = this.firestore.collection('users').doc(uid);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return userDocRef
+      .get()
+      .toPromise()
+      .then((doc: any) => {
+        if (doc.exists) {
+          return doc.data();
+        } else {
+          console.log('No such document!');
+          return null;
+        }
+      })
+      .catch((error) => {
+        console.error('Error getting user details:', error);
+        return null;
+      });
+  }
 }

@@ -104,7 +104,7 @@
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
-   margin-top: 20px;
+   /* margin-top: 20px; */
 
 
    box-sizing: border-box;
@@ -120,6 +120,8 @@
    scrollbar-width: thin;
    width: 100%;
    /* Ensure the parent takes the full width of the viewport */
+
+   margin-top: -10px;
  }
 
  .img {
@@ -186,6 +188,40 @@
    font-size: 18px;
    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
  }
+
+ .example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-divider {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px
+}
+
+.scrollablePart {
+  margin-top: 80px;
+  /* Adjust based on the height of the toolbar */
+  /* padding: 20px;  */
+  overflow-y: auto;
+  /* height: calc(100vh - 64px);  */
+}
+
+.mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  background-color: white;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+.home {
+  color: black;
+}
 
  /* Media Queries */
 

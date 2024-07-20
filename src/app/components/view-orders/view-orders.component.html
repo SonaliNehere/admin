@@ -10,7 +10,7 @@
   <div *ngIf="orders.length === 0" class="onEmptyOrder">
     <h1>No orders found </h1>
   </div>
-  <mat-card class="example-card" *ngFor="let order of filteredOrders.reverse()" appearance="outlined">
+  <mat-card class="example-card" *ngFor="let order of sortedOrders" appearance="outlined">
     <mat-card-header>
       <div class="products">
         <div class="img">
@@ -23,7 +23,7 @@
           <mat-card-title>{{ order.product.product.name }}</mat-card-title>
           <!-- <mat-card-subtitle style=" color: rgb(63, 30, 212)">User Id : {{ order.docId }}</mat-card-subtitle> -->
           <mat-card-subtitle>Order Id : {{ order.orderId }}</mat-card-subtitle>
-          <!-- <mat-card-subtitle>Order placed on {{ order.dateOfOrdered | date:'medium'}}</mat-card-subtitle> -->
+          <mat-card-subtitle> {{ order.dateOfOrdered | date:'medium'}}</mat-card-subtitle>
           <mat-card-actions *ngIf="!isMobile">
             <button mat-flat-button (click)="deliverOrder(order.orderId, order.docId)"
               *ngIf="!order.product.product.dateOfOrderDelivered && !order.product.product.isOrderCancled ">Deliver

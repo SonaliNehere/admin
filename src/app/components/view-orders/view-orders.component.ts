@@ -12,23 +12,24 @@ import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.comp
 })
 export class ViewOrdersComponent {
   orders: any[] = [];
+  sortedOrders: any[] = [];
 
   searchQuery: string = '';
   filteredOrders: any[] = [];
-  
+
   isMobile!: boolean;
 
   constructor(
     private dataService: DataService,
     private router: Router,
     private mediaQueryService: MediaQueryService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.fetchOrders();
 
-    this.mediaQueryService.isMobile$.subscribe(isMobile => {
+    this.mediaQueryService.isMobile$.subscribe((isMobile) => {
       this.isMobile = isMobile;
     });
   }
@@ -37,8 +38,11 @@ export class ViewOrdersComponent {
     this.dataService.getAllOrders().subscribe(
       (orders) => {
         this.orders = orders;
-        this.filteredOrders = [...orders];
+        // this.filteredOrders = [...orders];
         console.log('Orders:', this.orders);
+
+        this.sortedOrders = this.sortOrdersByDate(orders);
+        console.log('sortedOrders : ', this.sortedOrders);
       },
       (error) => {
         console.error('Error fetching orders:', error);
@@ -46,32 +50,43 @@ export class ViewOrdersComponent {
     );
   }
 
+  // Function to sort the array
+  sortOrdersByDate(
+    orders: { id: number; dateOfOrdered: string }[]
+  ): { id: number; dateOfOrdered: string }[] {
+    return orders.sort((a, b) => {
+      const dateA = new Date(a.dateOfOrdered);
+      const dateB = new Date(b.dateOfOrdered);
+      return dateB.getTime() - dateA.getTime(); // For descending order
+    });
+  }
+
   deliverOrder(orderId: any, uid: any) {
     // if (confirm('Are you sure you want to deliver this order?')) {
-      const dialogConfig = new MatDialogConfig();
+    const dialogConfig = new MatDialogConfig();
 
-      // Set the position of the dialog
-      dialogConfig.position = {
-        top: '250px',
-        // right: '20px',
-      };
-  
-      dialogConfig.data = {
-        message: 'Are you sure you want to deliver this order?',
-      };
-  
-      const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
-  
-      dialogRef.afterClosed().subscribe((result: any) => {
-        if (result) {
-      this.dataService
-        .deliveredOrder(orderId, uid)
-        ?.then((res: any) => {
-          console.log('Order delivered:');
-        })
-        .catch((error) => {
-          console.error('Error delivering orders:', error);
-        });
+    // Set the position of the dialog
+    dialogConfig.position = {
+      top: '250px',
+      // right: '20px',
+    };
+
+    dialogConfig.data = {
+      message: 'Are you sure you want to deliver this order?',
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.dataService
+          .deliveredOrder(orderId, uid)
+          ?.then((res: any) => {
+            console.log('Order delivered:');
+          })
+          .catch((error) => {
+            console.error('Error delivering orders:', error);
+          });
       }
     });
     // }

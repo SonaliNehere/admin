@@ -11,7 +11,7 @@
     </div>
 
     <button mat-icon-button (click)="myOrders()">
-      <mat-icon matBadge={{orderLength}} matBadgeSize="small"  matBadgeOverlap="true" matBadgePosition="after">
+      <mat-icon matBadge={{orderLength}} matBadgeSize="small" matBadgeOverlap="true" matBadgePosition="after">
         shopping_bag
       </mat-icon>
     </button>
@@ -44,7 +44,8 @@
         <!-- <mat-card-subtitle>{{product.id}}</mat-card-subtitle> -->
         <mat-card-actions>
           <button mat-icon-button (click)="editProduct(product)"><mat-icon>edit</mat-icon></button>
-          <button mat-icon-button (click)="deleteProduct(product.id,  product.imageUrl)"><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button
+            (click)="deleteProduct(product.id,  product.imageUrl)"><mat-icon>delete</mat-icon></button>
         </mat-card-actions>
 
       </div>

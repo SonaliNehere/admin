@@ -12,11 +12,15 @@ export class OrderDetailsComponent {
   displayedColumns: string[] = ['name', 'price', 'quantity', 'totalPrice'];
   priceData: any = [];
 
+  userDetails: any = '';
+  name: any = '';
+
   constructor(private dataService: DataService, private router: Router) {
     this.data = this.dataService.getOrderData();
     console.log('data : ', this.data);
     this.priceData.push(this.data.product.product);
     console.log('priceData : ', this.priceData);
+    this.getUser();
   }
 
   // cancelOrder(orderId: any) {
@@ -33,6 +37,18 @@ export class OrderDetailsComponent {
   openProduct(item: any): void {
     this.dataService.setData(item);
     this.router.navigate(['product']);
+  }
+
+  getUser() {
+    this.dataService.getUserDetails(this.data.docId).then((userDetails) => {
+      if (userDetails) {
+        console.log('User details:', userDetails);
+        this.userDetails = userDetails;
+        this.name = this.userDetails.user.name;
+      } else {
+        console.log('No user found');
+      }
+    });
   }
 
   routeToHome() {

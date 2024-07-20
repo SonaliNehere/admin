@@ -33,6 +33,10 @@
                     <!-- <mat-label class="Cancelled">Order Cancelled</mat-label> -->
                     <mat-card-subtitle>User Id : {{ data.docId }}</mat-card-subtitle>
                 </div>
+                <div class="margin" *ngIf="name !== ''">
+                    <!-- <mat-label class="Cancelled">Order Cancelled</mat-label> -->
+                    <mat-card-subtitle>User Name : {{ name }}</mat-card-subtitle>
+                </div>
             </div>
             <mat-divider class="divider2"></mat-divider>
             <div>

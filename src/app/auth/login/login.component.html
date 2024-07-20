@@ -3,30 +3,57 @@
         <div class="col-12 col-md-8 col-lg-5">
             <div class="card shadow">
                 <div class="card-body">
-                    <form>
+                    <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
                         <div class="mb-3">
                             <h2 class="text-dark text-muted text-center">The Kala Mart Login</h2>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" [(ngModel)]="email">
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email"
+                                [(ngModel)]="email" required email #emailInput="ngModel">
+                            <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+                                class="text-danger">
+                                <div *ngIf="emailInput.errors?.['required']">Email is required</div>
+                                <div *ngIf="emailInput.errors?.['email']">Invalid email format</div>
+                            </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 position-relative">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" [(ngModel)]="password">
+                            <input [type]="passwordFieldType" class="form-control" id="exampleInputPassword1"
+                                name="password" [(ngModel)]="password" required #passwordInput="ngModel">
+                            <i class="fa" [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"
+                                (click)="togglePasswordVisibility()"
+                                style="position: absolute; right: 10px; top: 39px; cursor: pointer;"></i>
+                            <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+                                class="text-danger">
+                                <div *ngIf="passwordInput.errors?.['required']">Password is required</div>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button type="button" class="btn btn-info text-dark" (click)="login()">Login</button>
+                            <button type="submit" class="btn btn-info text-dark"
+                                [disabled]="loginForm.invalid">Login</button>
                         </div>
                         <br>
                         <!-- <div class="row">
                             <div class="col-12 col-md-6">
-                                <a href="/register" style="text-decoration: none;">Need Account? <span class="text-danger">Register</span></a>
+                                <a routerLink="/register" style="text-decoration: none;">Need Account? <span class="text-danger">Register</span></a>
                             </div>
                             <div class="col-12 col-md-6 text-md-end">
-                                <a href="/forgot-password" class="text-dark" style="text-decoration: none;">Forgot Password?</a>
+                                <a routerLink="/forgot-password" class="text-dark" style="text-decoration: none;">Forgot Password?</a>
                             </div>
                         </div> -->
+
+                        <!--
+                        <div class="row mt-2">
+                            <a (click)="signInWithGoogle()" style="text-decoration: none; cursor: pointer;">
+                                <div class="card shadow text-center">
+                                    <div class="card-body">
+                                        <img src="../../../assets/images/icons8-google-48.png" alt="" height="24px" width="24px"> Sign In with Google
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        -->
                     </form>
                 </div>
             </div>
