@@ -36,8 +36,8 @@ export class HomeComponent {
   imageUrl: File | null = null;
   products: any[] = [];
 
-  email: any;
-  password: any;
+  // email: any;
+  // password: any;
 
   selectedFile: File | null = null;
 
@@ -63,18 +63,18 @@ export class HomeComponent {
     this.fetchOrders();
     // this.router.navigate(['dashboard']);
     // this.playAudio();
-    this.email = localStorage.getItem('email');
-    console.log('user : ', this.email);
+    // this.email = localStorage.getItem('email');
+    // console.log('user : ', this.email);
 
     // Retrieve products from Firestore
     // this.products$ = this.firestore.collection('products').valueChanges();
   }
 
   ngOnInit() {
-    this.email = localStorage.getItem('email');
-    this.password = localStorage.getItem('password');
-    console.log('email : ', this.email);
-    console.log('password : ', this.password);
+    // this.email = localStorage.getItem('email');
+    // this.password = localStorage.getItem('password');
+    // console.log('email : ', this.email);
+    // console.log('password : ', this.password);
 
     // Retrieve product details from Firebase Firestore
     this.isLoading = this.loaderService.show();
@@ -93,7 +93,10 @@ export class HomeComponent {
   }
 
   playAudio() {
-    const audio = new Audio('/assets/notification.mp3');
+    // const audio = new Audio('/assets/notification.mp3');
+
+    //for deployment
+    const audio = new Audio('/admin/assets/notification.mp3');
     audio.play();
     console.log('audio played');
   }
