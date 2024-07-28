@@ -22,6 +22,9 @@ export class EditComponent {
   productVideoLink: string = '';
   imageUpdated: boolean = false;
   isLoading: boolean = false;
+  category: string = '';
+
+  categories: string[] = ['Frame', 'Rasin', 'Other'];
 
   constructor(
     private fireStorage: AngularFireStorage,
@@ -38,6 +41,7 @@ export class EditComponent {
     this.price = this.data.price;
     this.urlString = this.data.imageUrl;
     this.id = this.data.id;
+    this.category = this.data.category;
     this.productVideoLink = this.data.productVideoLink;
   }
 
@@ -51,6 +55,7 @@ export class EditComponent {
           imageUrl: this.urlString,
           id: this.id,
           productVideoLink: this.productVideoLink,
+          category: this.category
         });
         this.openSnackBar('Product Updated Successfully', 'Close');
         this.resetForm();
@@ -71,6 +76,7 @@ export class EditComponent {
               imageUrl: imageUrl,
               id: this.id,
               productVideoLink: this.productVideoLink,
+              category: this.category
             });
             this.openSnackBar('Product Updated Successfully', 'Close');
             this.resetForm();
@@ -116,7 +122,7 @@ export class EditComponent {
       this.productName &&
       this.productDesc &&
       this.price &&
-      this.urlString
+      this.urlString && this.category
     );
   }
 
@@ -127,5 +133,6 @@ export class EditComponent {
     this.imageUrl = null;
     this.urlString = '';
     this.productVideoLink = '';
+    this.category = '';
   }
 }

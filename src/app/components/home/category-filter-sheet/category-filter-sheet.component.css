@@ -1,0 +1,23 @@
+.bottom-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #ccc;
+}
+
+.bottom-sheet-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+  border-top: 1px solid #ccc;
+}
+
+mat-list-item.selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.done {
+  background-color: purple;
+  color: white;
+}

@@ -96,6 +96,9 @@
   /* padding: 20px;  */
   overflow-y: auto;
   /* height: calc(100vh - 64px);  */
+
+  /* position: relative;
+  padding: 16px;  */
 }
 
 .mat-toolbar {
@@ -150,7 +153,8 @@
 }
 
 .search-box1 {
-  width: 94%;
+  /* width: 94%; */
+  width: 84%;
   height: 35px;
   /* top: 40px; */
   bottom: 10px;
@@ -266,4 +270,11 @@
   .img {
     height: 300px;
   }
+}
+
+.filter-button-container {
+  position: absolute;
+  top: 70px;
+  right: 0px;
+  z-index: 1000; /* Ensure it is above other elements */
 }

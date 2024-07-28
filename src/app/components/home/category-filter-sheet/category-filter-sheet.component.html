@@ -1,0 +1,17 @@
+<div class="bottom-sheet-header">
+    <mat-card-title style="color: rgb(60, 58, 58);">CATEGORY</mat-card-title>
+    <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<mat-nav-list>
+    <mat-list-item *ngFor="let category of categories" (click)="selectCategory(category)"
+        [class.selected]="category === selectedCategory">
+        {{ category }}
+    </mat-list-item>
+</mat-nav-list>
+
+<div class="bottom-sheet-footer">
+    <button mat-raised-button (click)="applyFilter()" class="done">Done</button>
+</div>

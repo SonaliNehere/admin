@@ -20,6 +20,9 @@ export class AddComponent {
   imagePreview: string | ArrayBuffer | null = '';
   selectedFile: File | null = null;
   productVideoLink: string = '';
+  category: string = '';
+
+  categories: string[] = ['Frame', 'Rasin', 'Other'];
 
   isLoading: boolean = false;
 
@@ -51,6 +54,7 @@ export class AddComponent {
           imageUrl: imageUrl,
           desc: this.productDesc,
           productVideoLink: this.productVideoLink,
+          category: this.category,
         });
         const productId = docRef.id;
         await docRef.update({ id: productId });
@@ -115,7 +119,8 @@ export class AddComponent {
       this.productName &&
       this.productDesc &&
       this.price &&
-      this.imageUrl
+      this.imageUrl &&
+      this.category
     );
   }
 
@@ -126,5 +131,6 @@ export class AddComponent {
     this.imageUrl = null;
     this.imagePreview = null;
     this.productVideoLink = '';
+    this.category = '';
   }
 }

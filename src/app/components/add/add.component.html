@@ -20,6 +20,13 @@
           [ngModelOptions]="{standalone: true}">
       </div>
       <div class="mb-3">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-select placeholder="   Select Category" [(ngModel)]="category" [ngModelOptions]="{standalone: true}" required>
+            <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mb-3">
         <mat-label>Upload Image</mat-label>
         <input type="file" placeholder="Image" class="form-control" [(ngModel)]="imageUrl" required
           [ngModelOptions]="{standalone: true}" (change)="onFileSelected($event)">

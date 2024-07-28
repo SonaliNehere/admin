@@ -19,6 +19,13 @@
         <input type="number" placeholder="Price" class="form-control" name="price" [(ngModel)]="price" required>
       </div>
       <div class="mb-3">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-select placeholder="   Select Category" [(ngModel)]="category" [ngModelOptions]="{standalone: true}" required>
+            <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mb-3">
         <input type="file" placeholder="File" class="form-control" [(ngModel)]="imageUrl" required
           [ngModelOptions]="{standalone: true}" (change)="onFileSelected($event)">
       </div>

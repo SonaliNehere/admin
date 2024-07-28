@@ -16,6 +16,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { MediaQueryService } from '../../shared/media-query.service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { CategoryFilterSheetComponent } from './category-filter-sheet/category-filter-sheet.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-home',
@@ -47,6 +49,8 @@ export class HomeComponent {
   isLoading: boolean = false;
   isMobile!: boolean;
 
+  selectedCategory: string = 'All';
+
   constructor(
     private dialog: MatDialog,
     private dataService: DataService,
@@ -58,7 +62,8 @@ export class HomeComponent {
     private _snackBar: MatSnackBar,
     private loaderService: LoaderService,
     private messaging: AngularFireMessaging,
-    private mediaQueryService: MediaQueryService
+    private mediaQueryService: MediaQueryService,
+    private bottomSheet: MatBottomSheet
   ) {
     this.fetchOrders();
     // this.router.navigate(['dashboard']);
@@ -259,4 +264,29 @@ export class HomeComponent {
     this.router.navigate(['orders']);
     // this.dialogRef.close();
   }
+
+  filterProducts() {
+    if (this.selectedCategory === 'All') {
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(product => product.category === this.selectedCategory);
+    }
+  }
+
+  openFilter(): void {
+    const bottomSheetRef = this.bottomSheet.open(CategoryFilterSheetComponent, {
+      data: { selectedCategory: this.selectedCategory }
+    });
+
+    bottomSheetRef.afterDismissed().subscribe((selectedCategory: string) => {
+      if (selectedCategory) {
+        this.selectedCategory = selectedCategory;
+        this.filterProducts();
+      }
+    });
+  }
+
+
+
+
 }

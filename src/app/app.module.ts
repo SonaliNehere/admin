@@ -66,6 +66,8 @@ import { OrderDetailsComponent } from './components/view-orders/order-details/or
 import { NewlineToBrPipe } from './newline-to-br.pipe';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+import { CategoryFilterSheetComponent } from './components/home/category-filter-sheet/category-filter-sheet.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
     NewlineToBrPipe,
     ConfirmDialogComponent,
     ErrorDialogComponent,
+    CategoryFilterSheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,6 +109,7 @@ import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
     MatTableModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
+    MatSelectModule
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
